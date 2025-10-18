@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AMQ Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // This is critical for Tailwind's class-based dark mode to work
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                primary: '#F76F8E',
+                'primary-hover': '#dd637f',
+                dark: '#555656',
+                black: '#1e1e1e',
+                'surface': '#333333',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <script>
+      // Apply theme from localStorage before React loads to prevent flash of wrong theme
+      (function() {
+        try {
+          const theme = localStorage.getItem('amq-portal-theme') || 'dark';
+          if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {
+          console.error('Could not apply theme from localStorage', e);
+        }
+      })();
+    </script>
+    <style>
+      /* Light mode scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f5f9; /* slate-100 */
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1; /* slate-300 */
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8; /* slate-400 */
+      }
+
+      /* Dark mode scrollbar */
+      .dark ::-webkit-scrollbar-track {
+        background: #333333; /* dark surface */
+      }
+      .dark ::-webkit-scrollbar-thumb {
+        background: #555656; /* dark gray */
+      }
+      .dark ::-webkit-scrollbar-thumb:hover {
+        background: #6b6b6b; /* lighter gray */
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "recharts": "https://aistudiocdn.com/recharts@^3.2.1",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.22.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-slate-100 dark:bg-brand-black text-slate-900 dark:text-white antialiased">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
